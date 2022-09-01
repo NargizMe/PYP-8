@@ -19,9 +19,6 @@ sudokuNumbers.forEach((btn) => {
     btn.addEventListener('click', addNumberToSpan);
 })
 
-candidateSwitch.addEventListener('click', () =>  this.checked);
-
-
 let innerHtmlOfCanditates = [];
 function addNumberToSpan(){
     let num = this.textContent;
