@@ -16,16 +16,50 @@ tdsBox.forEach((td) => {
 })
 
 sudokuNumbers.forEach((btn) => {
-    btn.addEventListener('click', function() {
-        if(candidateSwitch.checked){
-            console.log(this.textContent);
-        }
-    })
+    btn.addEventListener('click', addNumberToSpan);
 })
 
-candidateSwitch.addEventListener('click', function() {
-    return this.checked;
-})
+candidateSwitch.addEventListener('click', () =>  this.checked);
+
+
+let innerHtmlOfCanditates = [];
+function addNumberToSpan(){
+    let num = this.textContent;
+    if(candidateSwitch.checked){
+        addNumberToCandidate(num);
+    }
+    else{
+        addNumberToValue(num);
+    }
+}
+
+
+function addNumberToCandidate(num){
+    canditdatesOfBox.forEach((el) => {
+        if(el.parentElement.className === 'selected'){
+            innerHtmlOfCanditates = el.innerHTML.split('');
+            console.log(innerHtmlOfCanditates);
+            if(innerHtmlOfCanditates.includes(`${num}`)){
+                innerHtmlOfCanditates[innerHtmlOfCanditates.indexOf(num)] = '';
+                innerHtmlOfCanditates.sort();
+                el.innerHTML = `${innerHtmlOfCanditates.join('')}`;
+            }
+            else{
+                innerHtmlOfCanditates.push(num);
+                innerHtmlOfCanditates.sort();
+                el.innerHTML = `${innerHtmlOfCanditates.join('')}`;
+            }
+        }
+    })
+}
+
+function addNumberToValue(num){
+    valueOfBox.forEach((el) => {
+        if(el.parentElement.className === 'selected'){
+            el.innerHTML = `${num}`;
+        }
+    })
+}
 
 
 
